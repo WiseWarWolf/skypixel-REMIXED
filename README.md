@@ -1,4 +1,8 @@
 # Skypixel
 A mod providing useful things for Hypixel Skyblock.
 
-Discontinued because I end up playing for way too many hours.
+This mod is Remixed By me 
+
+SO CREDIT GOES TO Prplz for the mod:
+
+Prplz skypixel mod: https://github.com/prplz/Skypixel
