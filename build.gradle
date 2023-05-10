@@ -1,0 +1,53 @@
+buildscript {
+    repositories {
+        jcenter()
+        maven {
+            name = "forge"
+            url = "http://files.minecraftforge.net/maven"
+        }
+    }
+    dependencies {
+        classpath "net.minecraftforge.gradle:ForgeGradle:2.1-SNAPSHOT"
+    }
+}
+
+apply plugin: "net.minecraftforge.gradle.forge"
+
+version = modVersion
+group = modGroup
+archivesBaseName = modBaseName
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+minecraft {
+    version = "1.8.9-11.15.1.2318-1.8.9"
+    runDir = "run"
+    mappings = "stable_22"
+    coreMod = project.coreMod
+    replace "%%UPDATE_URL%%": "$updateUrl/$modBaseName/$project.version"
+    // ./gradlew runClient -PclientArgs="--accessToken xxxxx --uuid ef1d2c32a2344fd8b116299221c1ec92 --username prplz"
+    clientRunArgs = findProperty("clientArgs")?.split() ?: []
+    clientJvmArgs = ["-Dskypixel.forceSkyblock=true", "-XX:+DisableExplicitGC"]
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testCompile "junit:junit:4.12"
+}
+
+processResources {
+    inputs.properties project.properties.findAll { it.value instanceof String }
+    filesMatching("*.info") {
+        expand project.properties
+    }
+}
+
+jar {
+    manifest {
+        attributes FMLAT: "${project.name}_at.cfg", FMLCorePluginContainsFMLMod: true
+    }
+}
