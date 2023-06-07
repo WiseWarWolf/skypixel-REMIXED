@@ -19,6 +19,7 @@ public class Keybinds {
     private final KeyBinding keyBindingWarpHome = new KeyBinding(KEY_WARP_HOME.key, 0, KEY_CATEGORIES_SKYPIXEL.key);
     private final KeyBinding keyBindingWarpHub = new KeyBinding(KEY_WARP_HUB.key, 0, KEY_CATEGORIES_SKYPIXEL.key);
     private final KeyBinding keyBindingWarpGarden = new KeyBinding(KEY_WARP_GARDEN.key, 0, KEY_CATEGORIES_SKYPIXEL.key);
+    private final KeyBinding keyBindingSetSpawn = new KeyBinding(KEY_SET_SPAWN.key, 0, KEY_CATEGORIES_SKYPIXEL.key);
     private final long commandCooldown = Duration.ofSeconds(1).toNanos();
     private long lastCommand = System.nanoTime();
 
@@ -31,6 +32,7 @@ public class Keybinds {
         ClientRegistry.registerKeyBinding(keyBindingWarpHome);
         ClientRegistry.registerKeyBinding(keyBindingWarpHub);
         ClientRegistry.registerKeyBinding(keyBindingWarpGarden);
+        ClientRegistry.registerKeyBinding(keyBindingSetSpawn);
         MinecraftForge.EVENT_BUS.register(this);
     }
 
@@ -73,9 +75,15 @@ public class Keybinds {
                 mc.thePlayer.sendChatMessage("/warp garden");
             }
         }
+
+        while (keyBindingSetSpawn.isPressed()) {
+            if (useCommand()) {
+                mc.thePlayer.sendChatMessage("/setspawn");
+            }
+        }
     }
 
     public boolean isAnyKeybindEnabled() {
-        return keyBindingMenu.getKeyCode() != 0 || keyBindingWarpHome.getKeyCode() != 0 || keyBindingWarpHub.getKeyCode() != 0 || keyBindingWarpGarden.getKeyCode() != 0;
+        return keyBindingMenu.getKeyCode() != 0 || keyBindingWarpHome.getKeyCode() != 0 || keyBindingWarpHub.getKeyCode() != 0 || keyBindingWarpGarden.getKeyCode() != 0 || keyBindingSetSpawn.getKeyCode() != 0;
     }
 }

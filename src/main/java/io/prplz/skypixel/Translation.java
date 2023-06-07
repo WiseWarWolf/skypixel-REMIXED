@@ -36,6 +36,7 @@ public enum Translation {
     KEY_WARP_HOME,
     KEY_WARP_HUB,
     KEY_WARP_GARDEN,
+    KEY_SET_SPAWN,
     SETTING_DISABLED,
     SETTING_ENABLED,
     SETTING_OFF,
